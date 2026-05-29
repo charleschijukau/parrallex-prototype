@@ -55,8 +55,8 @@ export default function NotificationsPage() {
               style={{
                 background: n.read ? 'rgba(16,38,61,0.5)' : style.bg,
                 borderColor: n.read ? 'var(--border)' : style.border,
-                ringColor: n.read ? 'transparent' : style.border,
-              }}
+                outlineColor: n.read ? 'transparent' : style.border,
+              } as React.CSSProperties}
               onClick={() => markRead(n.id)}>
               <div className="flex items-start gap-3">
                 <div className={cn('w-7 h-7 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5')}
