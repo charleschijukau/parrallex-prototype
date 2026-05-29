@@ -17,16 +17,20 @@ const data = [
 
 export default function FunnelChart() {
   return (
-    <div className="bg-surface p-6 rounded-2xl h-[350px] min-h-0 min-w-0">
-      <h2 className="text-xl font-bold mb-4 text-text">Onboarding Funnel</h2>
+    <section className="bg-surface p-6 rounded-3xl min-h-[380px] min-w-0">
+      <div className="mb-5">
+        <h2 className="text-xl font-bold text-text">Onboarding Funnel</h2>
+      </div>
 
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={data}>
-          <XAxis dataKey="name" />
-          <Tooltip />
-          <Bar dataKey="value" radius={[10, 10, 0, 0]} fill="#00d492" />
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
+      <div className="h-[320px] min-h-[320px] w-full">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={data} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
+            <XAxis dataKey="name" tickLine={false} axisLine={false} />
+            <Tooltip />
+            <Bar dataKey="value" radius={[10, 10, 0, 0]} fill="#00d492" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </section>
   )
 }
