@@ -26,7 +26,9 @@ export default function RootLayout({
             text-white
           "
         >
-          {children}
+          <div className="container-shell page-shell page-padding p-8">
+            {children}
+          </div>
         </div>
       </body>
     </html>
