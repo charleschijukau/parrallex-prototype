@@ -10,11 +10,11 @@ const statusColors: Record<string, string> = {
 
 export default function AgentsPage() {
   return (
-    <div className="space-y-8">
-      <div className="mb-8">
+    <div className="space-y-6">
+      <div className="mb-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-white">Agents</h1>
+            <h1 className="text-2xl font-semibold text-white">Agents</h1>
             <p className="text-sm text-muted mt-2">Capacity, SLA performance, and recovery tracking for the CRM agent roster.</p>
           </div>
           <Link href="/admin" className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white transition hover:border-white/20">
@@ -25,7 +25,7 @@ export default function AgentsPage() {
 
       <div className="grid gap-6 xl:grid-cols-2">
         {agents.map((agent) => (
-          <div key={agent.id} className="rounded-3xl border border-[#17314D] bg-[#10263D] p-6">
+          <div key={agent.id} className="rounded-3xl border border-surface-light bg-surface p-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-xs uppercase tracking-[0.18em] text-muted">Agent</p>
@@ -38,26 +38,26 @@ export default function AgentsPage() {
             </div>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-3xl border border-white/10 bg-[#0B1A2D] p-5">
+              <div className="rounded-3xl border border-surface-light bg-[#0B1A2D] p-5">
                 <p className="text-xs uppercase tracking-[0.18em] text-muted">Assigned</p>
                 <p className="mt-3 text-3xl font-semibold text-white">{agent.assigned}</p>
               </div>
-              <div className="rounded-3xl border border-white/10 bg-[#0B1A2D] p-5">
+              <div className="rounded-3xl border border-surface-light bg-[#0B1A2D] p-5">
                 <p className="text-xs uppercase tracking-[0.18em] text-muted">Capacity</p>
                 <p className="mt-3 text-3xl font-semibold text-white">{agent.capacity}</p>
               </div>
             </div>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-3">
-              <div className="rounded-3xl bg-[#081821] p-4 text-center">
+              <div className="rounded-3xl border border-surface-light bg-[#081821] p-4 text-center">
                 <p className="text-xs uppercase tracking-[0.18em] text-muted">Contacted</p>
                 <p className="mt-3 text-2xl font-semibold text-white">{agent.contacted}</p>
               </div>
-              <div className="rounded-3xl bg-[#081821] p-4 text-center">
+              <div className="rounded-3xl border border-surface-light bg-[#081821] p-4 text-center">
                 <p className="text-xs uppercase tracking-[0.18em] text-muted">Converted</p>
                 <p className="mt-3 text-2xl font-semibold text-white">{agent.converted}</p>
               </div>
-              <div className="rounded-3xl bg-[#081821] p-4 text-center">
+              <div className="rounded-3xl border border-surface-light bg-[#081821] p-4 text-center">
                 <p className="text-xs uppercase tracking-[0.18em] text-muted">SLA</p>
                 <p className="mt-3 text-2xl font-semibold text-white">{agent.slaCompliance}%</p>
               </div>

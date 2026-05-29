@@ -130,6 +130,17 @@ input, textarea, select { outline: none; border: none; font-family: inherit; col
 .card-compact .value { font-size: 18px; font-weight: 700; color: var(--text); }
 .card-compact:hover { background: rgba(255,255,255,0.035); border-color: rgba(255,255,255,0.06); }
 
+.container-shell {
+  width: 100%;
+  max-width: 1540px;
+  margin-inline: auto;
+}
+.page-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 /* ─── Buttons ───────────────────────────────────────────────────── */
 .fintech-button {
   background: linear-gradient(135deg, #00d492, #00a978);
