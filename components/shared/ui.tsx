@@ -19,6 +19,7 @@ interface StatCardProps {
   deltaUp?: boolean
   icon?: ReactNode
   accent?: 'green' | 'gold' | 'blue' | 'red'
+  compact?: boolean
 }
 
 const accentMap = {
@@ -28,16 +29,19 @@ const accentMap = {
   red: 'rgba(255,107,107,0.12)',
 }
 
-export function StatCard({ label, value, delta, deltaUp, icon, accent = 'green' }: StatCardProps) {
+export function StatCard({ label, value, delta, deltaUp, icon, accent = 'green', compact = false }: StatCardProps) {
+  const baseClass = compact ? 'card-compact' : 'metric-card section-card'
   return (
-    <div className="metric-card section-card" style={{ position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', inset: 0, background: accentMap[accent], pointerEvents: 'none', borderRadius: 'inherit' }} />
+    <div className={baseClass} style={compact ? undefined : { position: 'relative', overflow: 'hidden' }}>
+      {!compact && (
+        <div style={{ position: 'absolute', inset: 0, background: accentMap[accent], pointerEvents: 'none', borderRadius: 'inherit' }} />
+      )}
       <div className="relative z-10">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-xs font-medium" style={{ color: 'var(--muted)' }}>{label}</p>
+          <p className={cn(compact ? 'label' : 'text-xs font-medium')} style={{ color: 'var(--muted)' }}>{label}</p>
           {icon && <div className="opacity-60">{icon}</div>}
         </div>
-        <p className="text-2xl font-semibold text-white">{value}</p>
+        <p className={cn(compact ? 'value' : 'text-2xl font-semibold text-white')}>{value}</p>
         {delta && (
           <p className={cn('text-xs mt-1', deltaUp ? 'text-success' : 'text-danger')}>
             {delta}

@@ -1,6 +1,6 @@
 ﻿export default function SettingsPage() {
   return (
-    <main className="p-8 space-y-8">
+    <div className="space-y-8">
       <div className="flex flex-col gap-3">
         <div>
           <h1 className="text-4xl font-bold">Settings</h1>
@@ -77,6 +77,6 @@
           </aside>
         </div>
       </div>
-    </main>
+    </div>
   )
 }

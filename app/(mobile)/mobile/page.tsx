@@ -1,10 +1,11 @@
 'use client'
 import Link from 'next/link'
 import { ArrowRight, Shield, Zap, Smartphone } from 'lucide-react'
+import QuickDemoLogin from '@/components/ui/quick-demo-login'
 
 export default function MobilePage() {
   return (
-    <div className="flex flex-col flex-1 px-6 py-10">
+    <div className="flex flex-col flex-1 px-6 py-8">
       {/* Logo */}
       <div className="flex items-center gap-2 mb-auto">
         <div className="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-sm"
@@ -59,6 +60,8 @@ export default function MobilePage() {
           <Link href="/mobile/login" className="font-medium" style={{ color: 'var(--primary)' }}>Sign in</Link>
         </p>
       </div>
+
+      <QuickDemoLogin />
     </div>
   )
 }

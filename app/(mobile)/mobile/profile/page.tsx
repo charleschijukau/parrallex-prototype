@@ -1,3 +1,5 @@
+"use client"
+
 import Link from 'next/link'
 import { ArrowLeft, User } from 'lucide-react'
 import { useOnboardingStore } from '@/store'

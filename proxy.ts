@@ -8,10 +8,7 @@ export function proxy(
   const isLoggedIn =
     request.cookies.get("parallex-demo-auth")
 
-  const isAdminRoute =
-    request.nextUrl.pathname.startsWith(
-      "/admin"
-    )
+  const isAdminRoute = request.nextUrl.pathname.startsWith("/admin")
 
   if (
     isAdminRoute &&

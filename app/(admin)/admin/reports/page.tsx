@@ -4,7 +4,7 @@ import { ArrowRight, BarChart3, TrendingUp, ShieldCheck, Users } from 'lucide-re
 
 export default function ReportsPage() {
   return (
-    <main className="p-8">
+    <div className="space-y-8">
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="text-4xl font-bold text-white">Reports</h1>
@@ -107,6 +107,6 @@ export default function ReportsPage() {
           ))}
         </div>
       </div>
-    </main>
+    </div>
   )
 }

@@ -8,6 +8,8 @@ import {
   Sparkles, Megaphone, Bell, ShieldCheck, TrendingUp,
   Settings, FlaskConical, Menu, X, ChevronRight
 } from 'lucide-react'
+import { getAgentById } from '@/mock/data'
+import { useEffect, useState } from 'react'
 
 const navItems = [
   { href: '/admin', label: 'Overview', icon: LayoutDashboard, exact: true },
@@ -28,6 +30,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname()
   const { sidebarCollapsed, toggleSidebar, unreadCount } = useDashboardStore()
 
+  const [demoInitials, setDemoInitials] = useState<string | null>(null)
+
+  useEffect(() => {
+    const match = document.cookie.match(/(^|; )parallex-demo-user=([^;]+)/)
+    if (match) {
+      const id = decodeURIComponent(match[2])
+      const agent = getAgentById(id)
+      if (agent) {
+        const parts = agent.name.split(' ')
+        const initials = parts.map(p => p[0]).slice(0,2).join('').toUpperCase()
+        setDemoInitials(initials)
+      }
+    }
+  }, [])
+
   const isActive = (href: string, exact?: boolean) =>
     exact ? pathname === href : pathname.startsWith(href)
 
@@ -37,7 +54,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <aside
         className={cn(
           'desktop-sidebar flex flex-col flex-shrink-0 transition-all duration-300 border-r',
-          'sticky top-0 h-screen overflow-y-auto',
+          'h-screen overflow-hidden',
           sidebarCollapsed ? 'w-[72px]' : 'w-[220px]'
         )}
         style={{ borderColor: 'var(--border)', background: 'rgba(16,38,61,0.96)' }}
@@ -58,7 +75,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 px-2 py-4 space-y-0.5">
+        <nav className="flex-1 px-2 py-4 space-y-0.5 overflow-y-auto">
           {navItems.map(({ href, label, icon: Icon, exact }) => {
             const active = isActive(href, exact)
             return (
@@ -93,7 +110,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       {/* Main */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 min-h-0">
         {/* Topbar */}
         <header className="sticky top-0 z-10 flex items-center justify-between px-6 py-3 border-b"
           style={{ borderColor: 'var(--border)', background: 'rgba(7,21,33,0.92)', backdropFilter: 'blur(12px)' }}>
@@ -118,14 +135,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </Link>
             <div className="w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-semibold"
               style={{ background: 'rgba(0,212,146,0.15)', color: 'var(--primary)' }}>
-              AD
+              {demoInitials ?? 'AD'}
             </div>
           </div>
         </header>
 
         {/* Page content */}
-        <main className="flex-1 p-6 overflow-auto">
-          {children}
+        <main className="flex-1 p-6 min-h-0 overflow-auto">
+          <div className="container-shell page-shell">
+            {children}
+          </div>
         </main>
       </div>
     </div>

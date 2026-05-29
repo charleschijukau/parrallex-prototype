@@ -10,7 +10,7 @@ const statusColors: Record<string, string> = {
 
 export default function AgentsPage() {
   return (
-    <main className="p-8">
+    <div className="space-y-8">
       <div className="mb-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
@@ -65,6 +65,6 @@ export default function AgentsPage() {
           </div>
         ))}
       </div>
-    </main>
+    </div>
   )
 }

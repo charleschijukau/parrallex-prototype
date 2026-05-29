@@ -1,5 +1,7 @@
 "use client"
 
+import { SectionCard } from '@/components/shared/ui'
+
 const regions = [
   {
     state: "Lagos",
@@ -32,64 +34,38 @@ const regions = [
 
 export default function RegionalPerformance() {
   return (
-    <div className="bg-surface rounded-3xl border border-surface-light p-6">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-text">
-          Regional Performance
-        </h2>
-
-        <p className="text-sm text-muted mt-1">
-          Recovery and onboarding performance by region
-        </p>
+    <SectionCard>
+      <div className="mb-4">
+        <h2 className="text-lg font-semibold text-white">Regional Performance</h2>
+        <p className="text-xs mt-1" style={{ color: 'var(--muted)' }}>Recovery and onboarding performance by region</p>
       </div>
 
-      <div className="space-y-5">
-        {regions.map((region) => (
-          <div
-            key={region.state}
-            className="bg-dark-bg rounded-2xl p-5 border border-surface-light"
-          >
-            <div className="flex items-center justify-between mb-4">
+      <div className="space-y-4">
+        {regions.map(region => (
+          <div key={region.state} className="bg-dark-bg rounded-2xl p-4 border border-surface-light">
+            <div className="flex items-center justify-between mb-3">
               <div>
-                <h3 className="font-semibold text-lg text-text">
-                  {region.state}
-                </h3>
-
-                <p className="text-sm text-muted">
-                  {region.recoveries} recoveries
-                </p>
+                <h3 className="font-semibold text-base text-white">{region.state}</h3>
+                <p className="text-sm text-muted">{region.recoveries} recoveries</p>
               </div>
 
               <div className="text-right">
-                <h4 className="text-2xl font-bold text-text">
-                  {region.completion}%
-                </h4>
-
-                <p className="text-xs text-muted">
-                  Completion rate
-                </p>
+                <h4 className="text-xl font-bold text-white">{region.completion}%</h4>
+                <p className="text-xs text-muted">Completion rate</p>
               </div>
             </div>
 
             <div className="h-3 bg-dark-bg rounded-full">
-              <div
-                className="h-full bg-secondary rounded-full"
-                style={{
-                  width: `${region.completion}%`,
-                }}
-              />
+              <div className="h-full bg-secondary rounded-full" style={{ width: `${region.completion}%` }} />
             </div>
 
-            <div className="mt-4 flex items-center justify-between text-sm">
-              <span className="text-muted">
-                Dormant Accounts
-              </span>
-
-              <span className="text-text">{region.dormant}</span>
+            <div className="mt-3 flex items-center justify-between text-sm">
+              <span className="text-muted">Dormant Accounts</span>
+              <span className="text-white">{region.dormant}</span>
             </div>
           </div>
         ))}
       </div>
-    </div>
+    </SectionCard>
   )
 }

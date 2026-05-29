@@ -1,6 +1,6 @@
 ﻿export default function CompliancePage() {
   return (
-    <main className="p-8 space-y-8">
+    <div className="space-y-8">
       <div>
         <h1 className="text-4xl font-bold">Compliance Center</h1>
         <p className="mt-2 text-sm text-muted">
@@ -62,6 +62,6 @@
           </table>
         </div>
       </div>
-    </main>
+    </div>
   )
 }

@@ -31,7 +31,7 @@ export default function MobileDashboard() {
   }, [router, session.stage])
 
   return (
-    <main className="min-h-screen bg-[#081B2E] p-5 text-white">
+    <main className="min-h-screen bg-[#081B2E] p-6 text-white">
       <div className="rounded-3xl bg-gradient-to-r from-[#005D4C] to-[#0C7B66] p-6">
         <p className="text-sm opacity-80">Welcome back, {name}</p>
         <h1 className="text-4xl font-bold mt-3">₦245,000</h1>

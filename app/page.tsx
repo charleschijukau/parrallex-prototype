@@ -1,6 +1,7 @@
-'use client'
+"use client"
 import { useState } from 'react'
 import Link from 'next/link'
+import QuickDemoLogin from '@/components/ui/quick-demo-login'
 import {
   ArrowRight, Copy, Check, Shield, Zap, BarChart3,
   Smartphone, Users, Brain, ChevronRight, ExternalLink,
@@ -97,7 +98,7 @@ export default function LandingPage() {
         </p>
 
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link href="/admin" className="fintech-button" style={{ padding: '12px 28px', fontSize: 14, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+          <Link href="/demo-login" className="fintech-button" style={{ padding: '12px 28px', fontSize: 14, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
             Open Back Office <ArrowRight size={16} />
           </Link>
           <Link href="/mobile" style={{
@@ -111,6 +112,8 @@ export default function LandingPage() {
           </Link>
         </div>
       </div>
+
+      <QuickDemoLogin />
 
       {/* Test credentials */}
       <div className="section-card fade-up" style={{ marginBottom: 32 }}>
@@ -146,7 +149,7 @@ export default function LandingPage() {
         <p style={{ fontSize: 13, color: 'var(--muted)', marginBottom: 20 }}>12 fully built pages with live mock data, charts, tables, and interactive controls.</p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 10 }}>
           {ADMIN_PAGES.map(({ href, icon: Icon, label, desc, color }) => (
-            <Link key={href} href={href} style={{
+            <Link key={href} href="/demo-login" style={{
               display: 'flex', alignItems: 'flex-start', gap: 12,
               padding: '14px 16px', borderRadius: 'var(--radius-lg)',
               border: '1px solid var(--border)',

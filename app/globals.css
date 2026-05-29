@@ -48,6 +48,7 @@ html, body {
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
+  overflow-y: scroll;
   background:
     radial-gradient(ellipse 80% 50% at 0% 0%, rgba(0, 212, 146, 0.10) 0%, transparent 50%),
     radial-gradient(ellipse 60% 40% at 100% 100%, rgba(212, 168, 79, 0.07) 0%, transparent 50%),
@@ -116,6 +117,18 @@ input, textarea, select { outline: none; border: none; font-family: inherit; col
   background: radial-gradient(circle, rgba(0,212,146,0.10), transparent 70%);
   pointer-events: none;
 }
+
+/* Compact card variant inspired by the landing page credential cards */
+.card-compact {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: var(--radius-lg);
+  padding: 12px 14px;
+  transition: background 0.12s, border-color 0.12s;
+}
+.card-compact .label { font-size: 12px; color: var(--muted); }
+.card-compact .value { font-size: 18px; font-weight: 700; color: var(--text); }
+.card-compact:hover { background: rgba(255,255,255,0.035); border-color: rgba(255,255,255,0.06); }
 
 /* ─── Buttons ───────────────────────────────────────────────────── */
 .fintech-button {
