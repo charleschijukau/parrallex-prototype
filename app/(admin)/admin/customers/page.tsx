@@ -1,111 +1,95 @@
-import { customers } from "@/mock/customers"
+'use client'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { allCustomers } from '@/mock/data'
+import { SectionCard, SectionHeader, FilterPills, TableWrap, Th, Td, TRow, Badge, GhostButton } from '@/components/shared/ui'
+import { cn, kycBadgeColor, scenarioBadgeColor, statusBadgeColor, nudgeBadgeColor, nudgeLabel, formatDateTime, timeAgo } from '@/lib/utils'
+import { Search, Download } from 'lucide-react'
+import type { Scenario } from '@/types'
 
 export default function CustomersPage() {
+  const router = useRouter()
+  const [search, setSearch] = useState('')
+  const [scenarioFilter, setScenarioFilter] = useState('all')
+
+  const filtered = allCustomers.filter(c => {
+    const matchScenario = scenarioFilter === 'all' || c.scenario === scenarioFilter
+    const q = search.toLowerCase()
+    const matchSearch = !q || c.name.toLowerCase().includes(q) || c.maskedPhone.includes(q) || c.zone.toLowerCase().includes(q)
+    return matchScenario && matchSearch
+  })
+
   return (
-    <main className="p-8 space-y-8">
-      <div>
-        <h1 className="text-4xl font-bold">
-          Customers
-        </h1>
-
-        <p className="text-gray-400 mt-2">
-          Customer lifecycle intelligence records
-        </p>
+    <div className="space-y-5 fade-up">
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-xl font-semibold text-white">Customers</h1>
+          <p className="text-sm mt-1" style={{ color: 'var(--muted)' }}>{allCustomers.length} total records in pipeline</p>
+        </div>
+        <GhostButton><Download size={14} /> Export CSV</GhostButton>
       </div>
 
-      <div
-        className="
-          grid
-          grid-cols-1
-          md:grid-cols-2
-          xl:grid-cols-3
-          gap-6
-        "
-      >
-        {customers.map((customer) => (
-          <div
-            key={customer.id}
-            className="
-              bg-[#10263D]
-              rounded-3xl
-              border border-[#17314D]
-              p-6
-            "
-          >
-            <div className="flex items-center gap-4">
-              <img
-                src={customer.avatar}
-                alt={customer.name}
-                className="
-                  w-14 h-14 rounded-full
-                "
-              />
-
-              <div>
-                <h2 className="font-semibold text-lg">
-                  {customer.name}
-                </h2>
-
-                <p className="text-sm text-gray-400">
-                  {customer.phone}
-                </p>
-              </div>
-            </div>
-
-            <div
-              className="
-                mt-6
-                grid grid-cols-2 gap-4
-                text-sm
-              "
-            >
-              <div>
-                <p className="text-gray-500">
-                  Scenario
-                </p>
-
-                <h3>{customer.scenario}</h3>
-              </div>
-
-              <div>
-                <p className="text-gray-500">
-                  Status
-                </p>
-
-                <h3>{customer.status}</h3>
-              </div>
-
-              <div>
-                <p className="text-gray-500">
-                  AI Score
-                </p>
-
-                <h3>{customer.aiScore}%</h3>
-              </div>
-
-              <div>
-                <p className="text-gray-500">
-                  Risk
-                </p>
-
-                <h3>{customer.riskScore}%</h3>
-              </div>
-            </div>
-
-            <button
-              className="
-                mt-6
-                w-full
-                bg-[#005D4C]
-                rounded-2xl
-                py-3
-              "
-            >
-              Open Customer
-            </button>
+      <SectionCard>
+        <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
+          {/* Search */}
+          <div className="relative flex-1 max-w-xs">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--muted)' }} />
+            <input
+              value={search} onChange={e => setSearch(e.target.value)}
+              placeholder="Search name, phone, zone..."
+              className="fintech-input text-sm pl-9 py-2 text-white placeholder-muted"
+              style={{ fontSize: 13 }}
+            />
           </div>
-        ))}
-      </div>
-    </main>
+          <FilterPills
+            options={[
+              { value: 'all', label: 'All scenarios' },
+              { value: 'S1', label: 'S1' },
+              { value: 'S2', label: 'S2' },
+              { value: 'S3', label: 'S3' },
+            ]}
+            active={scenarioFilter} onChange={setScenarioFilter} />
+        </div>
+
+        <TableWrap>
+          <thead>
+            <tr>
+              <Th>Customer / contact</Th>
+              <Th>Scenario</Th>
+              <Th>KYC method</Th>
+              <Th>Zone</Th>
+              <Th>Captured</Th>
+              <Th>Status</Th>
+              <Th>Nudge</Th>
+              <Th>Flags</Th>
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.map(c => (
+              <TRow key={c.id} onClick={() => router.push(`/admin/customers/${c.id}`)}>
+                <Td>
+                  <div className="font-medium text-white">{c.name !== 'Unknown' ? c.name : c.maskedPhone}</div>
+                  <div className="text-xs" style={{ color: 'var(--muted)' }}>{c.gender} · {c.age} yrs</div>
+                </Td>
+                <Td><Badge className={scenarioBadgeColor(c.scenario)}>{c.scenario}</Badge></Td>
+                <Td><Badge className={kycBadgeColor(c.kycMethod)}>{c.kycMethod}</Badge></Td>
+                <Td><span className="text-xs" style={{ color: 'var(--muted)' }}>{c.zone}</span></Td>
+                <Td><span className="text-xs" style={{ color: 'var(--muted)' }}>{timeAgo(c.capturedAt)}</span></Td>
+                <Td><Badge className={statusBadgeColor(c.status)}>{c.status}</Badge></Td>
+                <Td><Badge className={nudgeBadgeColor(c.nudgeStatus)}>{nudgeLabel(c.nudgeStatus)}</Badge></Td>
+                <Td>
+                  {c.flags.length > 0 ? (
+                    <span className="text-xs text-warning font-medium">{c.flags.length} flag{c.flags.length > 1 ? 's' : ''}</span>
+                  ) : (
+                    <span className="text-xs" style={{ color: 'var(--muted)' }}>—</span>
+                  )}
+                </Td>
+              </TRow>
+            ))}
+          </tbody>
+        </TableWrap>
+        <p className="text-xs mt-3" style={{ color: 'var(--muted)' }}>Showing {filtered.length} of {allCustomers.length} records</p>
+      </SectionCard>
+    </div>
   )
 }
