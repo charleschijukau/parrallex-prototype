@@ -9,42 +9,40 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#071521',
-        surface: '#10263d',
-        'surface-light': '#17314d',
-        card: 'rgba(16, 38, 61, 0.72)',
-        primary: '#00d492',
-        secondary: '#d4a84f',
-        text: '#ffffff',
-        muted: '#94a3b8',
-        danger: '#ff6b6b',
-        success: '#00d492',
-        warning: '#ffb84d',
-        'dark-bg': '#081B2E',
-      },
-      spacing: {
-        '18': '4.5rem',
+        /* Parallex Brand */
+        'px-blue':    { 900:'#0D1057', 800:'#141880', 700:'#1B2087', 600:'#2228A8', 500:'#2D38C4' },
+        'px-gold':    { 600:'#A87830', 500:'#C9943A', 400:'#D4A84F', 300:'#E2BE7A' },
+        /* Surfaces */
+        background:   '#07091F',
+        surface:      '#0D1040',
+        'surface-mid':'#121550',
+        'surface-light':'#181C62',
+        /* Status */
+        primary:      '#D4A84F',
+        secondary:    '#2D38C4',
+        muted:        '#8890C8',
+        danger:       '#EF4444',
+        success:      '#22C55E',
+        warning:      '#F59E0B',
+        info:         '#3B82F6',
       },
       borderRadius: {
-        '3xl': '1.875rem',
-      },
-      backdropBlur: {
-        'xl': '1rem',
+        '2xl': '16px',
+        '3xl': '22px',
+        '4xl': '28px',
       },
       boxShadow: {
-        'glow-green': '0 0 0 1px rgba(0, 212, 146, 0.1), 0 0 30px rgba(0, 212, 146, 0.14)',
-        'glow-gold': '0 0 0 1px rgba(212, 168, 79, 0.1), 0 0 30px rgba(212, 168, 79, 0.14)',
-        'fintech': '0 10px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04)',
-        'fintech-lg': '0 12px 40px rgba(0,0,0,0.32)',
+        'gold':    '0 0 0 1px rgba(201,148,58,0.18), 0 8px 32px rgba(201,148,58,0.10)',
+        'blue':    '0 0 0 1px rgba(27,32,135,0.30), 0 8px 32px rgba(7,9,31,0.60)',
+        'card':    '0 8px 40px rgba(0,0,0,0.50)',
+        'glow-gold':  '0 0 0 1px rgba(201,148,58,0.14), 0 0 28px rgba(201,148,58,0.12)',
+        'glow-green': '0 0 0 1px rgba(34,197,94,0.12), 0 0 28px rgba(34,197,94,0.12)',
       },
       animation: {
-        pulse: 'pulse 1.6s infinite',
-      },
-      keyframes: {
-        pulse: {
-          '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
-          '50%': { opacity: '1', transform: 'scale(1.3)' },
-        },
+        'live-pulse': 'livePulse 1.8s ease-in-out infinite',
+        'fade-up':    'fadeUp 0.38s cubic-bezier(0.22,1,0.36,1) both',
+        'slide-in':   'slideIn 0.28s cubic-bezier(0.22,1,0.36,1) both',
+        'spin-slow':  'spin 0.75s linear infinite',
       },
     },
   },

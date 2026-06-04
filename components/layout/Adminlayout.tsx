@@ -6,147 +6,182 @@ import { cn } from '@/lib/utils'
 import {
   LayoutDashboard, GitBranch, Users, UserCheck, BarChart3,
   Sparkles, Megaphone, Bell, ShieldCheck, TrendingUp,
-  Settings, FlaskConical, Menu, X, ChevronRight
+  Settings, FlaskConical, ChevronLeft, ChevronRight
 } from 'lucide-react'
-import { getAgentById } from '@/mock/data'
-import { useEffect, useState } from 'react'
+import NotificationDrawer from '@/components/shared/NotificationDrawer'
 
 const navItems = [
-  { href: '/admin', label: 'Overview', icon: LayoutDashboard, exact: true },
-  { href: '/admin/pipeline', label: 'Pipeline', icon: GitBranch },
-  { href: '/admin/customers', label: 'Customers', icon: Users },
-  { href: '/admin/agents', label: 'Agents', icon: UserCheck },
-  { href: '/admin/campaigns', label: 'Campaigns', icon: Megaphone },
-  { href: '/admin/analytics', label: 'Analytics', icon: TrendingUp },
-  { href: '/admin/ai-insights', label: 'AI Insights', icon: Sparkles },
-  { href: '/admin/reports', label: 'Reports', icon: BarChart3 },
-  { href: '/admin/compliance', label: 'Compliance', icon: ShieldCheck },
-  { href: '/admin/notifications', label: 'Notifications', icon: Bell },
-  { href: '/admin/simulator', label: 'Simulator', icon: FlaskConical },
-  { href: '/admin/settings', label: 'Settings', icon: Settings },
+  { href: '/admin',              label: 'Overview',      icon: LayoutDashboard, exact: true },
+  { href: '/admin/pipeline',     label: 'Pipeline',      icon: GitBranch },
+  { href: '/admin/customers',    label: 'Customers',     icon: Users },
+  { href: '/admin/agents',       label: 'Agents',        icon: UserCheck },
+  { href: '/admin/campaigns',    label: 'Campaigns',     icon: Megaphone },
+  { href: '/admin/analytics',    label: 'Analytics',     icon: TrendingUp },
+  { href: '/admin/ai-insights',  label: 'AI Insights',   icon: Sparkles },
+  { href: '/admin/reports',      label: 'Reports',       icon: BarChart3 },
+  { href: '/admin/compliance',   label: 'Compliance',    icon: ShieldCheck },
+  { href: '/admin/notifications',label: 'Notifications', icon: Bell },
+  { href: '/admin/simulator',    label: 'Simulator',     icon: FlaskConical },
+  { href: '/admin/settings',     label: 'Settings',      icon: Settings },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const { sidebarCollapsed, toggleSidebar, unreadCount } = useDashboardStore()
 
-  const [demoInitials, setDemoInitials] = useState<string | null>(null)
-
-  useEffect(() => {
-    const match = document.cookie.match(/(^|; )parallex-demo-user=([^;]+)/)
-    if (match) {
-      const id = decodeURIComponent(match[2])
-      const agent = getAgentById(id)
-      if (agent) {
-        const parts = agent.name.split(' ')
-        const initials = parts.map(p => p[0]).slice(0,2).join('').toUpperCase()
-        setDemoInitials(initials)
-      }
-    }
-  }, [])
-
   const isActive = (href: string, exact?: boolean) =>
     exact ? pathname === href : pathname.startsWith(href)
 
   return (
-    <div className="flex min-h-screen" style={{ background: 'var(--background)' }}>
+    <div style={{ display:'flex', minHeight:'100vh' }}>
       {/* Sidebar */}
-      <aside
-        className={cn(
-          'desktop-sidebar flex flex-col flex-shrink-0 transition-all duration-300 border-r',
-          'h-screen overflow-hidden',
-          sidebarCollapsed ? 'w-[72px]' : 'w-[220px]'
-        )}
-        style={{ borderColor: 'var(--border)', background: 'rgba(16,38,61,0.96)' }}
-      >
+      <aside style={{
+        width: sidebarCollapsed ? 68 : 212,
+        flexShrink: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'sticky',
+        top: 0,
+        height: '100vh',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        transition: 'width 0.28s cubic-bezier(0.22,1,0.36,1)',
+        background: 'linear-gradient(180deg, rgba(18,21,80,0.98) 0%, rgba(7,9,31,0.99) 100%)',
+        borderRight: '1px solid var(--border)',
+        zIndex: 20,
+      }}>
         {/* Logo */}
-        <div className={cn('flex items-center gap-3 px-4 py-5 border-b', sidebarCollapsed && 'justify-center px-0')}
-          style={{ borderColor: 'var(--border)' }}>
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 font-bold text-xs"
-            style={{ background: 'linear-gradient(135deg,#00d492,#00a978)', color: '#071521' }}>
-            PX
-          </div>
+        <div style={{
+          display:'flex', alignItems:'center', gap:10,
+          padding: sidebarCollapsed ? '20px 0' : '20px 16px',
+          justifyContent: sidebarCollapsed ? 'center' : 'flex-start',
+          borderBottom: '1px solid var(--border)',
+        }}>
+          {/* Logo mark — Parallex P circle */}
+          <div style={{
+            width:34, height:34, borderRadius:10, flexShrink:0,
+            background:'linear-gradient(135deg, var(--px-blue-700), var(--px-blue-500))',
+            border:'1.5px solid var(--border-gold)',
+            display:'flex', alignItems:'center', justifyContent:'center',
+            fontWeight:800, fontSize:15, color:'var(--px-gold-400)',
+            boxShadow:'0 4px 14px rgba(27,32,135,0.45)',
+            letterSpacing:'-0.02em',
+          }}>P</div>
           {!sidebarCollapsed && (
-            <div>
-              <p className="text-sm font-semibold text-white leading-none">Parallex</p>
-              <p className="text-[10px] mt-0.5" style={{ color: 'var(--muted)' }}>Back Office</p>
+            <div style={{ overflow:'hidden' }}>
+              <p style={{ fontSize:13, fontWeight:700, color:'white', lineHeight:1.1, whiteSpace:'nowrap' }}>Parallex Bank</p>
+              <p style={{ fontSize:10, color:'var(--muted)', marginTop:2, letterSpacing:'0.04em' }}>BACK OFFICE</p>
             </div>
           )}
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 px-2 py-4 space-y-0.5 overflow-y-auto">
+        <nav style={{ flex:1, padding:'10px 8px', display:'flex', flexDirection:'column', gap:2 }}>
           {navItems.map(({ href, label, icon: Icon, exact }) => {
             const active = isActive(href, exact)
             return (
               <Link key={href} href={href}
-                className={cn(
-                  'sidebar-item flex items-center gap-3 px-3 py-2 rounded-xl text-sm transition-all',
-                  sidebarCollapsed && 'justify-center px-2',
-                  active ? 'active text-white' : 'text-muted hover:text-white'
-                )}>
-                <Icon size={18} className="flex-shrink-0" />
-                {!sidebarCollapsed && <span>{label}</span>}
+                className={cn('sidebar-item', active && 'active')}
+                style={{ justifyContent: sidebarCollapsed ? 'center' : 'flex-start', paddingLeft: sidebarCollapsed ? 0 : 12 }}
+                title={sidebarCollapsed ? label : undefined}>
+                <div style={{ position:'relative', flexShrink:0 }}>
+                  <Icon size={17} />
+                  {label === 'Notifications' && unreadCount > 0 && (
+                    <span style={{
+                      position:'absolute', top:-5, right:-5,
+                      width:14, height:14, borderRadius:'50%',
+                      background:'var(--danger)', color:'white',
+                      fontSize:8, fontWeight:700,
+                      display:'flex', alignItems:'center', justifyContent:'center',
+                    }}>{unreadCount}</span>
+                  )}
+                </div>
+                {!sidebarCollapsed && <span style={{ whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>{label}</span>}
                 {!sidebarCollapsed && label === 'Notifications' && unreadCount > 0 && (
-                  <span className="ml-auto text-[10px] font-semibold px-1.5 py-0.5 rounded-full"
-                    style={{ background: 'var(--danger)', color: 'white' }}>
-                    {unreadCount}
-                  </span>
+                  <span style={{
+                    marginLeft:'auto', fontSize:10, fontWeight:700,
+                    padding:'2px 6px', borderRadius:999,
+                    background:'var(--danger)', color:'white',
+                  }}>{unreadCount}</span>
                 )}
               </Link>
             )
           })}
         </nav>
 
-        {/* Collapse toggle */}
-        <div className="px-2 pb-4">
+        {/* Collapse btn */}
+        <div style={{ padding:'8px', borderTop:'1px solid var(--border)' }}>
           <button onClick={toggleSidebar}
-            className={cn('w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm transition-all hover:bg-white/5',
-              sidebarCollapsed && 'justify-center')}
-            style={{ color: 'var(--muted)' }}>
-            {sidebarCollapsed ? <ChevronRight size={16} /> : <><Menu size={16} /><span>Collapse</span></>}
+            style={{
+              width:'100%', display:'flex', alignItems:'center', justifyContent: sidebarCollapsed ? 'center' : 'flex-end',
+              gap:6, padding:'8px 12px', borderRadius:'var(--radius-md)',
+              background:'transparent', color:'var(--muted)', fontSize:12,
+              transition:'background 0.18s, color 0.18s', cursor:'pointer', border:'none',
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.05)'; (e.currentTarget as HTMLElement).style.color = 'white' }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; (e.currentTarget as HTMLElement).style.color = 'var(--muted)' }}>
+            {sidebarCollapsed ? <ChevronRight size={15} /> : <><span>Collapse</span><ChevronLeft size={15} /></>}
           </button>
         </div>
       </aside>
 
       {/* Main */}
-      <div className="flex-1 flex flex-col min-w-0 min-h-0">
+      <div style={{ flex:1, display:'flex', flexDirection:'column', minWidth:0 }}>
         {/* Topbar */}
-        <header className="sticky top-0 z-10 flex items-center justify-between px-6 py-3 border-b"
-          style={{ borderColor: 'var(--border)', background: 'rgba(7,21,33,0.92)', backdropFilter: 'blur(12px)' }}>
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-medium px-2 py-1 rounded-md" style={{ background: 'rgba(0,212,146,0.1)', color: 'var(--primary)' }}>
-              CRM · Prototype
+        <header style={{
+          position:'sticky', top:0, zIndex:10,
+          display:'flex', alignItems:'center', justifyContent:'space-between',
+          padding:'0 24px', height:56,
+          background:'rgba(7,9,31,0.92)', backdropFilter:'blur(16px)',
+          borderBottom:'1px solid var(--border)',
+        }}>
+          <div style={{ display:'flex', alignItems:'center', gap:10 }}>
+            <span style={{ fontSize:11, fontWeight:700, padding:'3px 10px', borderRadius:999, letterSpacing:'0.05em',
+              background:'var(--px-gold-a08)', color:'var(--px-gold-400)', border:'1px solid var(--border-gold)' }}>
+              PROTOTYPE · DEMO
             </span>
           </div>
-          <div className="flex items-center gap-4 text-sm" style={{ color: 'var(--muted)' }}>
-            <div className="flex items-center gap-1.5">
-              <span className="live-dot w-2 h-2" />
-              <span className="text-xs">Live · 28 May 2026 · 09:41 WAT</span>
+          <div style={{ display:'flex', alignItems:'center', gap:16, fontSize:12, color:'var(--muted)' }}>
+            <div style={{ display:'flex', alignItems:'center', gap:6 }}>
+              <span className="live-dot" style={{ width:6, height:6 }} />
+              <span style={{ fontSize:11 }}>Live · 28 May 2026 · 09:41 WAT</span>
             </div>
-            <Link href="/admin/notifications" className="relative">
-              <Bell size={18} />
-              {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center text-[9px] font-bold rounded-full"
-                  style={{ background: 'var(--danger)', color: 'white' }}>
-                  {unreadCount}
-                </span>
-              )}
-            </Link>
-            <div className="w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-semibold"
-              style={{ background: 'rgba(0,212,146,0.15)', color: 'var(--primary)' }}>
-              {demoInitials ?? 'AD'}
-            </div>
+            <NotificationBell />
+            <div style={{
+              width:30, height:30, borderRadius:'50%',
+              background:'var(--px-blue-a20)', border:'1px solid var(--border-blue)',
+              display:'flex', alignItems:'center', justifyContent:'center',
+              fontSize:11, fontWeight:700, color:'#9BA8F0',
+            }}>AD</div>
           </div>
         </header>
 
-        {/* Page content */}
-        <main className="flex-1 p-6 min-h-0 overflow-auto">
-          <div className="container-shell page-shell">
-            {children}
-          </div>
+        <main style={{ flex:1, padding:24, overflowY:'auto' }}>
+          {children}
         </main>
       </div>
+
+      <NotificationDrawer />
     </div>
+  )
+}
+
+function NotificationBell() {
+  const { unreadCount, setActiveNotification, notifications } = useDashboardStore()
+  return (
+    <button onClick={() => setActiveNotification(notifications[0])}
+      style={{ position:'relative', background:'none', border:'none', cursor:'pointer', color:'var(--muted)', padding:4 }}
+      title="Notifications">
+      <Bell size={17} />
+      {unreadCount > 0 && (
+        <span style={{
+          position:'absolute', top:-2, right:-2,
+          width:16, height:16, borderRadius:'50%',
+          background:'var(--danger)', color:'white',
+          fontSize:9, fontWeight:700,
+          display:'flex', alignItems:'center', justifyContent:'center',
+        }}>{unreadCount}</span>
+      )}
+    </button>
   )
 }

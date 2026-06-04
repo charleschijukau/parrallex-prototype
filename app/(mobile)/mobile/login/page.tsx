@@ -7,28 +7,24 @@ import Link from 'next/link'
 
 export default function MobileLoginPage() {
   const router = useRouter()
-  const { setPhone, setStage } = useOnboardingStore()
+  const { setPhone } = useOnboardingStore()
   const [phone, setPhoneInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   const handleContinue = async () => {
-    if (phone.length < 11) {
-      setError('Please enter a valid 11-digit Nigerian phone number.')
-      return
-    }
-
+    if (phone.length < 11) { setError('Please enter a valid 11-digit Nigerian phone number.'); return }
     setError('')
     setLoading(true)
     setPhone(phone)
-    setStage('otp')
-    await new Promise((resolve) => setTimeout(resolve, 1200))
+    await new Promise(r => setTimeout(r, 1200))
     setLoading(false)
     router.push('/mobile/otp')
   }
 
   return (
     <div className="flex flex-col flex-1 px-6 py-8">
+      {/* Header */}
       <div className="flex items-center gap-3 mb-8">
         <Link href="/mobile" className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.05)' }}>
           <ArrowLeft size={18} className="text-white" />
@@ -50,6 +46,7 @@ export default function MobileLoginPage() {
           We'll send a verification code via WhatsApp. Your NIN details will be retrieved automatically.
         </p>
 
+        {/* Phone input */}
         <div className="mb-2">
           <label className="text-xs font-medium mb-2 block" style={{ color: 'var(--muted)' }}>Phone number</label>
           <div className="flex items-center gap-0 rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
@@ -60,7 +57,7 @@ export default function MobileLoginPage() {
             <input
               type="tel"
               value={phone}
-              onChange={(e) => { setPhoneInput(e.target.value.replace(/\D/g, '').slice(0, 11)); setError('') }}
+              onChange={e => { setPhoneInput(e.target.value.replace(/\D/g, '').slice(0, 11)); setError('') }}
               placeholder="08012345678"
               className="flex-1 px-4 py-4 bg-transparent text-white placeholder-muted text-base"
               style={{ outline: 'none', fontSize: 16 }}
@@ -69,16 +66,19 @@ export default function MobileLoginPage() {
           {error && <p className="text-xs mt-2" style={{ color: 'var(--danger)' }}>{error}</p>}
         </div>
 
+        {/* Consent */}
         <div className="mt-5 p-3 rounded-xl text-xs leading-relaxed" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', color: 'var(--muted)' }}>
           By continuing, you agree that Parallex Bank may contact you on this number to assist with your account setup.
         </div>
 
+        {/* NIN info */}
         <div className="mt-3 p-3 rounded-xl text-xs leading-relaxed flex items-start gap-2" style={{ background: 'rgba(0,212,146,0.04)', border: '1px solid rgba(0,212,146,0.08)', color: 'var(--muted)' }}>
           <span style={{ color: 'var(--primary)', flexShrink: 0 }}>ⓘ</span>
           We'll retrieve your name, date of birth, and registered address from your NIN record. You won't need to type them in.
         </div>
       </div>
 
+      {/* CTA */}
       <button
         onClick={handleContinue}
         disabled={loading || phone.length < 11}

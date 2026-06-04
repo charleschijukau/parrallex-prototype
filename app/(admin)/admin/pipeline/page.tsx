@@ -92,7 +92,6 @@ export default function PipelinePage() {
                 <Th>Dormant</Th>
                 <Th>Last activity</Th>
                 <Th>Nudge status</Th>
-                <Th></Th>
               </tr>
             </thead>
             <tbody>
@@ -140,7 +139,6 @@ export default function PipelinePage() {
                 <Th>SLA remaining</Th>
                 <Th>Agent</Th>
                 <Th>WA nudge</Th>
-                <Th></Th>
               </tr>
             </thead>
             <tbody>
@@ -223,7 +221,6 @@ export default function PipelinePage() {
                 <Th>Opens</Th>
                 <Th>Push status</Th>
                 <Th>Incentive shown</Th>
-                <Th></Th>
               </tr>
             </thead>
             <tbody>

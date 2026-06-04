@@ -1,15 +1,14 @@
 'use client'
 import Link from 'next/link'
 import { ArrowRight, Shield, Zap, Smartphone } from 'lucide-react'
-import QuickDemoLogin from '@/components/ui/quick-demo-login'
 
 export default function MobilePage() {
   return (
-    <div className="flex flex-col flex-1 px-6 py-8">
+    <div className="flex flex-col flex-1 px-6 py-10">
       {/* Logo */}
       <div className="flex items-center gap-2 mb-auto">
         <div className="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-sm"
-          style={{ background: 'linear-gradient(135deg, #00d492, #00a978)', color: '#071521' }}>
+          style={{ background: 'linear-gradient(135deg,#00d492,#00a978)', color: '#071521' }}>
           PX
         </div>
         <span className="text-white font-semibold text-lg">Parallex Bank</span>
@@ -60,8 +59,6 @@ export default function MobilePage() {
           <Link href="/mobile/login" className="font-medium" style={{ color: 'var(--primary)' }}>Sign in</Link>
         </p>
       </div>
-
-      <QuickDemoLogin />
     </div>
   )
 }

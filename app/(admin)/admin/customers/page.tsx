@@ -20,8 +20,8 @@ export default function CustomersPage() {
   })
 
   return (
-    <div className="space-y-6 fade-up">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+    <div className="space-y-5 fade-up">
+      <div className="flex items-start justify-between">
         <div>
           <h1 className="text-xl font-semibold text-white">Customers</h1>
           <p className="text-sm mt-1" style={{ color: 'var(--muted)' }}>{allCustomers.length} total records in pipeline</p>

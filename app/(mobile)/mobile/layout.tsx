@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import MobileShell from '@/components/mobile/mobile-shell'
 
 export const metadata: Metadata = {
   title: 'Parallex Bank',
@@ -7,8 +8,7 @@ export const metadata: Metadata = {
 
 export default function MobileLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mobile-shell flex flex-col min-h-screen" style={{ background: 'linear-gradient(180deg, #10263d, #071521)' }}>
-      {children}
-    </div>
+    <MobileShell>{children}</MobileShell>
+      
   )
 }
